@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import DeviceOrientation, { Orientation } from 'react-screen-orientation'
 import './App.css';
+import SignaturePad from 'react-signature-pad-wrapper'
+import FloatButton from './component/FloatButton'
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DeviceOrientation lockOrientation={'landscape'}>
+        {/* Will only be in DOM in landscape */}
+        <Orientation orientation='landscape' alwaysRender={false}>
+          <SignaturePad redrawOnResize={true} options={{minWidth: 5, maxWidth: 10, penColor: 'rgb(66, 133, 244)'}} />
+          <FloatButton/>
+        </Orientation>
+        {/* Will stay in DOM, but is only visible in portrait */}
+        <Orientation orientation='portrait' alwaysRender={false}>
+          <div>
+            <p>Para assinar o documento, vire a tela do seu aparelho</p>
+          </div>
+        </Orientation>
+      </DeviceOrientation>
   );
 }
 
